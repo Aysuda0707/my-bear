@@ -41,7 +41,9 @@ export default function MusicPlayer({ enabled }: MusicPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showEmbed, setShowEmbed] = useState(false);
   const [embedLoaded, setEmbedLoaded] = useState(false);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const autoplayAttempted = useRef(false);
 
   // Reveal the players once the visitor has interacted with the gift.
   useEffect(() => {
@@ -84,13 +86,38 @@ export default function MusicPlayer({ enabled }: MusicPlayerProps) {
     if (audio.paused) {
       audio
         .play()
-        .then(() => setIsPlaying(true))
+        .then(() => {
+          setIsPlaying(true);
+          setAutoplayBlocked(false);
+        })
         .catch(() => setIsPlaying(false));
     } else {
       audio.pause();
       setIsPlaying(false);
     }
   }, []);
+
+  // Auto-play the preview once it is ready. The gift click is a user gesture,
+  // so the browser generally permits this; if it is blocked we surface a hint.
+  useEffect(() => {
+    if (previewState !== "ready" || !previewUrl) return;
+    if (autoplayAttempted.current) return;
+    autoplayAttempted.current = true;
+
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio
+      .play()
+      .then(() => {
+        setIsPlaying(true);
+        setAutoplayBlocked(false);
+      })
+      .catch(() => {
+        setIsPlaying(false);
+        setAutoplayBlocked(true);
+      });
+  }, [previewState, previewUrl]);
 
   return (
     <section
@@ -153,7 +180,11 @@ export default function MusicPlayer({ enabled }: MusicPlayerProps) {
                   Official 30s preview
                 </p>
                 <p className="text-[11px] text-cocoa/70">
-                  {isPlaying ? "Now playing…" : "Tap play to listen"}
+                  {isPlaying
+                    ? "Now playing… 🎶"
+                    : autoplayBlocked
+                      ? "Tap play to start the music"
+                      : "Starting…"}
                 </p>
               </div>
               <audio

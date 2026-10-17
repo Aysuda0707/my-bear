@@ -13,7 +13,8 @@ auth, or backend required — it is a fully static, client-side experience.
 
 - **Genuinely animated teddy bear** — drawn as inline SVG and animated with CSS
   keyframes: it blinks (with natural, irregular timing), breathes, sways, waves,
-  tilts its head, and reacts happily.
+  tilts its head, and **dances** (bouncing body, swinging arms, bobbing head and
+  swaying hips) while smiling once the gift is opened.
 - **Scene One — The Gift:** the bear presents a clickable gift box with the
   prompt `Görəsən, içində nə var? 🎁✨`.
 - **Scene Two — Opening:** the lid lifts and rotates away, a confetti/sparkle
@@ -24,10 +25,11 @@ auth, or backend required — it is a fully static, client-side experience.
   `Doğum günün mübarək! Yeni yaşın sənə bol-bol sevinc, gülüş və gözəl xatirələr gətirsin! 🎀`
   fades in.
 - **Music:** the official **iTunes 30-second preview** of
-  **İYİ Kİ DOĞDUN — EFLUNE** plays in-page with a native play/pause control,
-  alongside the embedded **Apple Music web player** for the full track. Both are
-  revealed after the gift interaction, with a clear fallback button that opens
-  the exact song in Apple Music.
+  **İYİ Kİ DOĞDUN — EFLUNE** **auto-plays** as soon as the gift is opened (the
+  gift click is a user gesture, so the browser permits it), with a native
+  play/pause control, alongside the embedded **Apple Music web player** for the
+  full track. If a browser blocks autoplay, a clear "tap play" hint appears and
+  a fallback button always opens the exact song in Apple Music.
 - **Accessible & responsive:** works on mobile and desktop, respects
   `prefers-reduced-motion`, and includes ARIA labels on interactive controls.
 

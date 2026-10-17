@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-type Mood = "idle" | "presenting" | "happy";
+type Mood = "idle" | "presenting" | "happy" | "dancing";
 
 interface TeddyBearProps {
   /** Visual mood of the bear. */
@@ -56,8 +56,9 @@ export default function TeddyBear({
     };
   }, []);
 
-  const happy = mood === "happy";
+  const happy = mood === "happy" || mood === "dancing";
   const presenting = mood === "presenting";
+  const dancing = mood === "dancing";
 
   return (
     <div className={`relative ${className}`}>
@@ -98,13 +99,13 @@ export default function TeddyBear({
           </filter>
         </defs>
 
-        {/* Whole-body breathing + gentle sway */}
+        {/* Whole-body breathing + gentle sway (or dancing when happy) */}
         <g
-          className="animate-breathe"
+          className={dancing ? "animate-dance" : "animate-breathe"}
           style={{ transformBox: "fill-box", transformOrigin: "50% 90%" }}
         >
           <g
-            className="animate-sway"
+            className={dancing ? "animate-danceHip" : "animate-sway"}
             style={{ transformBox: "fill-box", transformOrigin: "50% 92%" }}
           >
             {/* ---------- Legs ---------- */}
@@ -115,13 +116,15 @@ export default function TeddyBear({
               <ellipse cx="208" cy="326" rx="17" ry="13" fill="#ffe0ee" />
             </g>
 
-            {/* ---------- Left arm (waving) ---------- */}
+            {/* ---------- Left arm (waving / dancing) ---------- */}
             <g
-              className={waving ? "animate-wave" : ""}
+              className={
+                dancing ? "animate-danceArmL" : waving ? "animate-wave" : ""
+              }
               style={{
                 transformBox: "fill-box",
                 transformOrigin: "78% 12%",
-                animationDuration: "1.8s",
+                animationDuration: dancing ? "0.9s" : "1.8s",
               }}
             >
               <ellipse
@@ -135,8 +138,9 @@ export default function TeddyBear({
               <ellipse cx="60" cy="240" rx="15" ry="15" fill="#ffe0ee" />
             </g>
 
-            {/* ---------- Right arm (holds gift) ---------- */}
+            {/* ---------- Right arm (holds gift / dances) ---------- */}
             <g
+              className={dancing ? "animate-danceArmR" : ""}
               style={{
                 transformBox: "fill-box",
                 transformOrigin: "20% 12%",
@@ -161,12 +165,13 @@ export default function TeddyBear({
             <ellipse cx="160" cy="252" rx="86" ry="78" fill="url(#furGrad)" />
             <ellipse cx="160" cy="262" rx="52" ry="52" fill="url(#bellyGrad)" />
 
-            {/* ---------- Head group (nods / tilts) ---------- */}
+            {/* ---------- Head group (nods / tilts / dances) ---------- */}
             <g
+              className={dancing ? "animate-danceHead" : ""}
               style={{
                 transformBox: "fill-box",
                 transformOrigin: "50% 88%",
-                transform: happy
+                transform: happy && !dancing
                   ? "rotate(-3deg) translateY(-3px)"
                   : "rotate(0deg)",
                 transition: "transform 0.7s cubic-bezier(0.34,1.56,0.64,1)",

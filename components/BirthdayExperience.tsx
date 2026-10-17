@@ -117,9 +117,9 @@ export default function BirthdayExperience() {
         {isBirthday && (
           <div className="flex w-full flex-col items-center gap-6">
             <div className="flex w-full flex-col items-center justify-center gap-4 sm:flex-row sm:items-end sm:gap-8">
-              {/* Bear reacting happily */}
+              {/* Bear dancing happily */}
               <div className="h-44 w-44 shrink-0 sm:h-56 sm:w-56">
-                <TeddyBear mood="happy" waving className="h-full w-full" />
+                <TeddyBear mood="dancing" waving={false} className="h-full w-full" />
               </div>
 
               {/* Cake */}

@@ -77,6 +77,28 @@ const config: Config = {
           "0%": { transform: "translateY(-10vh) rotate(0deg)", opacity: "1" },
           "100%": { transform: "translateY(110vh) rotate(720deg)", opacity: "0" },
         },
+        dance: {
+          "0%, 100%": { transform: "translateY(0) rotate(-4deg)" },
+          "25%": { transform: "translateY(-14px) rotate(4deg)" },
+          "50%": { transform: "translateY(0) rotate(-4deg)" },
+          "75%": { transform: "translateY(-14px) rotate(4deg)" },
+        },
+        danceArmL: {
+          "0%, 100%": { transform: "rotate(-18deg)" },
+          "50%": { transform: "rotate(38deg)" },
+        },
+        danceArmR: {
+          "0%, 100%": { transform: "rotate(18deg)" },
+          "50%": { transform: "rotate(-38deg)" },
+        },
+        danceHead: {
+          "0%, 100%": { transform: "rotate(-6deg)" },
+          "50%": { transform: "rotate(6deg)" },
+        },
+        danceHip: {
+          "0%, 100%": { transform: "translateX(-6px) rotate(-2deg)" },
+          "50%": { transform: "translateX(6px) rotate(2deg)" },
+        },
       },
       animation: {
         breathe: "breathe 4.2s ease-in-out infinite",
@@ -89,6 +111,11 @@ const config: Config = {
         popIn: "popIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both",
         fadeUp: "fadeUp 1s ease-out both",
         lidOpen: "lidOpen 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards",
+        dance: "dance 0.9s ease-in-out infinite",
+        danceArmL: "danceArmL 0.9s ease-in-out infinite",
+        danceArmR: "danceArmR 0.9s ease-in-out infinite",
+        danceHead: "danceHead 0.9s ease-in-out infinite",
+        danceHip: "danceHip 0.9s ease-in-out infinite",
       },
     },
   },
