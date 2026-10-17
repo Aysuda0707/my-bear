@@ -5,7 +5,7 @@ import TeddyBear from "./TeddyBear";
 import GiftBox from "./GiftBox";
 import Cake from "./Cake";
 import Confetti from "./Confetti";
-import MusicPlayer, { type MusicPlayerHandle } from "./MusicPlayer";
+import MusicPlayer from "./MusicPlayer";
 
 type Scene = "gift" | "opening" | "birthday";
 
@@ -26,7 +26,6 @@ export default function BirthdayExperience() {
   const [showMessage, setShowMessage] = useState(false);
   const [musicEnabled, setMusicEnabled] = useState(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
-  const musicRef = useRef<MusicPlayerHandle>(null);
 
   // Clear any pending timers on unmount.
   useEffect(() => {
@@ -44,12 +43,6 @@ export default function BirthdayExperience() {
       setBoxOpen(true);
       setConfetti(true);
       setMusicEnabled(true);
-
-      // Start the music synchronously inside this click gesture — browsers only
-      // permit audible autoplay when play() is called from a user gesture. The
-      // <audio> element is already mounted (see the always-rendered MusicPlayer
-      // below), so this call happens within the gesture window.
-      musicRef.current?.play();
 
       timers.current.push(
         setTimeout(() => setScene("opening"), 250),
@@ -79,24 +72,6 @@ export default function BirthdayExperience() {
       <Sparkles />
 
       <Confetti active={confetti} />
-
-      {/*
-        The music player is mounted for the whole experience (not just the
-        birthday scene) so its <audio> element exists before the gift is
-        clicked. That lets us call play() synchronously inside the click
-        gesture, which is what browsers require for audible autoplay.
-        It is visually hidden until the birthday scene reveals it.
-      */}
-      <div
-        className={
-          isBirthday
-            ? "relative z-10 flex w-full justify-center"
-            : "pointer-events-none absolute h-0 w-0 overflow-hidden opacity-0"
-        }
-        aria-hidden={!isBirthday}
-      >
-        <MusicPlayer ref={musicRef} enabled={musicEnabled} />
-      </div>
 
       <div className="relative z-10 flex w-full max-w-3xl flex-col items-center gap-6">
         {/* ---------- Scene: Gift ---------- */}
@@ -163,7 +138,10 @@ export default function BirthdayExperience() {
               {BIRTHDAY_MESSAGE}
             </p>
 
-            {/* Music controls are rendered once, above, and revealed here. */}
+            {/* Music */}
+            <div className="flex w-full justify-center">
+              <MusicPlayer enabled={musicEnabled} />
+            </div>
           </div>
         )}
       </div>
