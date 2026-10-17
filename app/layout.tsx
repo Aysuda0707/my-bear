@@ -1,18 +1,26 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+/**
+ * NOTE: The link preview (title, description, Open Graph / Twitter tags) is
+ * intentionally neutral and generic. The birthday surprise must stay secret
+ * when the link is shared, so nothing here reveals that this is a birthday app.
+ */
 export const metadata: Metadata = {
-  title: "My Bear 🧸 | A Little Birthday Surprise",
-  description:
-    "A cozy, animated birthday surprise with a fluffy teddy bear, a gift to open, a birthday cake and a sweet message.",
+  title: "My Bear 🧸",
+  description: "A cozy little corner with a fluffy teddy bear.",
   applicationName: "My Bear",
-  keywords: ["birthday", "teddy bear", "surprise", "My Bear", "doğum günü"],
+  keywords: ["teddy bear", "cute", "cozy"],
   authors: [{ name: "My Bear" }],
   openGraph: {
-    title: "My Bear 🧸 | A Little Birthday Surprise",
-    description:
-      "Open the gift and discover a little birthday surprise from a fluffy teddy bear.",
+    title: "My Bear 🧸",
+    description: "A cozy little corner with a fluffy teddy bear.",
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "My Bear 🧸",
+    description: "A cozy little corner with a fluffy teddy bear.",
   },
   robots: { index: true, follow: true },
 };
